@@ -190,6 +190,8 @@ $button.addEventListener('click' , buttonClicked);
 + 구조도를 보고 코딩 진행
 + 코드리뷰 하면서 정리
 + [상세 정리 내용](https://unique-wandflower-4cc.notion.site/20d93fcbb70f465fabd045214dd9a31e)
++ 중복되는 코드 제거
+
 
 ### 구조도 
 ```
@@ -354,5 +356,35 @@ $button.addEventListener('click' , buttonClick);
   + 이와 같은 특성을 갖는 데이터를 유사배열 이라 한다
 
 
+### 코드리펙토링
++ 제시어를 입력했을떄 순서가 다음사람으로 넘어가는 부분이 코드상에서 중복된다
++ 이를 한번만 사용하기 위해
++ 조건문에 || (OR) 연산자를 사용하였다
++ 제시어를 저장하는 변수에 값이 없거나 또는 제시어의 마지막 글자와 입력한 제시어의 첫번째 글자가 같이 않은 경우
++ OR 연산자를 통해 첫번째 사람과 그외 사람들을 구분할 수 있다
+```
+ if (!savedWord || inputWord[0] === comWord[comWord.length - 1]) {                   
+      savedWord = inputWord;
+      $word.textContent = savedWord;
+
+      nowOrder = Number($order.textContent);
+      
+      if (nowOrder + 1 > players) {
+          nowOrder = 1;
+          $order.textContent = Number(nowOrder);
+      } else  {
+          nowOrder = Number($order.textContent);
+          nowOrder += 1;
+          $order.textContent = Number(nowOrder);
+      }
+
+      $input.value = "";
+
+  } else {
+      alert("제시어가 올바르지 않습니다.");
+}
+
+
+```
 
 
