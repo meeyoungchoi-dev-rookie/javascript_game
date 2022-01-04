@@ -3,15 +3,12 @@
     <head>
         <meta charset="utf-8">
         <title>끝말잇기 게임</title>
-        <style>
-
-        </style>
     </head>
     <body>
         <h1>끝말잇기 게임</h1>
         <div>
-            <span id="order">1</span>번 참가자
-            <span>제시어:</span><span id="word"></span>
+            <span id="order">1</span>번째 사람 
+            제시어: <span id="word"></span>
         </div>
         <div>
             <input type="text" placeholder="제시어를 입력하세요"/>
@@ -19,63 +16,87 @@
         </div>
 
 
+
         <script>
-            // 확인 버튼 html 요소 선택
-            const $button = document.querySelector('button');
 
-            // 현재 순서 html 요소 선택
-            const $order = document.querySelector('#order');
-            let nowOrder; 
-
-            // 게임에 참가할 총 인원수 입력
-            const players = Number(prompt('게임에 참가할 인원을 입력하세요'));
-          
-            // 제시어가 입력될 input 요소 선택
+            let inputWord = ""; // 입력한 제시어를 저장할 변수
+            let savedWord; // 태그의 제시어를 저장할 변수
+            let comWord = "";   // 태그에서 가져온 제시어를 저장할 변수
+            let nowOrder;
+            const players = Number(prompt('게임에 참여할 인원 수를 입력하세요'));
             const $input = document.querySelector('input');
-        
-            // 제시어를 저장할 html 요소 선택
+            const $button = document.querySelector('button');
             const $word = document.querySelector('#word');
+            const $order = document.querySelector('#order');
 
-            // 제시어를 저장할 변수
-            let newWord = null;
 
-            // 확인 버튼이 클릭되었을때 실행될 콜백함수
-            function buttonClicked() {
-
-                // 사용자가 입력한 값을 가져온다
-                let inputWord = "";
-                inputWord = $input.value;
-                
-                // 화면에 표시될 제시어를 저장하기 위한 변수
-                let comWord = "";
-                comWord = $word.textContent;
+            const inputEvent = (event) =>  {
+                console.log('입력한 제시어: ' , event.target.value);
+                inputWord = event.target.value;
+            }
             
-                // 제시어 존재 여부 및 끝말잇기 규칙에 위배되는지 검사 하는 조건문
-                if (!newWord ||  comWord[comWord.length - 1] === inputWord[0]) {
-                   
-                    // 사용자로 부터 입력 받은 단어를 변수에 저장한다
-                    newWord = inputWord;
+            $input.addEventListener('input' , inputEvent); 
 
-                    // 제시어를 보여줄 html 요소에 값을 넣어준다
-                    $word.textContent = newWord;
-                
-                    // 다음 차례이동
+
+            const buttonClick = () => {
+
+                if (!savedWord) {
+                    
+                    savedWord = inputWord;
+                    $word.textContent = savedWord;
+
                     nowOrder = Number($order.textContent);
+                    
                     if (nowOrder + 1 > players) {
                         nowOrder = 1;
                         $order.textContent = Number(nowOrder);
-                    } else {
+                        $input.value = "";
+                    } else  {
+                        nowOrder = Number($order.textContent);
                         nowOrder += 1;
                         $order.textContent = Number(nowOrder);
+                        $input.value = "";
                     }
 
+
                 } else {
-                    alert('올바르지 않은 단어입니다.');
+
+                        comWord = $word.textContent;
+                    
+                        console.log('현재 제시어: ' , comWord);
+                        console.log('입력받은 제시어: ' , inputWord);
+
+                        if (comWord[comWord.length - 1] === inputWord[0]) {
+                            
+                        savedWord = inputWord;
+                        $word.textContent = savedWord;
+
+                        nowOrder = Number($order.textContent);
+    
+                        if (nowOrder + 1 > players) {
+                            nowOrder = 1;
+                            $order.textContent = Number(nowOrder);
+                            $input.value = "";
+                        } else  {
+                            nowOrder = Number($order.textContent);
+                            nowOrder += 1;
+                            $order.textContent = Number(nowOrder);
+                            $input.value = "";
+                        }
+
+                    } else {
+                        alert('다시 입력 하세요');
+                        $word.value = "";
+                    }
                 }
             }
 
-            // 확인 버튼을 클릭했을때 이벤트를 등록한다
-            $button.addEventListener('click' , buttonClicked);
+            $button.addEventListener('click' , buttonClick);
+
+
         </script>
+
+
+
     </body>
 </html>
