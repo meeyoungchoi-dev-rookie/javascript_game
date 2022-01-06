@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>계산기</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+
+            [class = "container"] {
+                width: 400px;
+                height: 600px;
+                border: 1px solid black;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                margin-top: 50px;
+            }
+
+            .calculator_top {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                width: 360px;
+                height: 200px;
+                border: 1px solid red;
+
+            }
+
+            .calculator_top #cal_operator {
+                width: 100px;
+                height: 100px;
+                border: 1px solid black;
+                font-size: 60px;
+                vertical-align: middle;
+                color: rebeccapurple;
+            }
+
+            .calculator_top #cal_show_num {
+                width: 200px;
+                height: 100px;
+                border: 1px solid black;
+                text-align: center;
+                font-size: 60px;
+                color: purple;
+                vertical-align: middle;
+            }
+
+            .calculator_body {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                width: 360px;
+                height: 300px;
+                border: 1px solid darkblue;
+            }
+
+            .calculator_body #cal_top {
+                width: 340px;
+                height: 60px;
+                border: 1px solid red;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .calculator_body #cal_top div {
+                width: 50px;
+                height: 30px;
+                border: 1px solid green;
+                background-color: gray;
+                text-align: center;
+            }
+
+
+            .calculator_body #cal_second {
+                width: 340px;
+                height: 60px;
+                border: 1px solid red;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .calculator_body #cal_second div {
+                width: 50px;
+                height: 30px;
+                border: 1px solid green;
+                background-color: gray;
+                text-align: center;
+            }
+
+            .calculator_body #cal_thrid {
+                width: 340px;
+                height: 60px;
+                border: 1px solid red;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .calculator_body #cal_thrid div {
+                width: 50px;
+                height: 30px;
+                border: 1px solid green;
+                background-color: gray;
+                text-align: center;
+            }
+
+
+            .calculator_body  #cal_fourth {
+                width: 340px;
+                height: 30px;
+                border: 1px solid red;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                margin-top: 5px;
+            }
+
+            .calculator_body #cal_fourth div {
+                width: 50px;
+                height: 30px;
+                border: 1px solid green;
+                background-color: gray;
+                text-align: center;
+            }
+
+            .calculator_body #cal_top #operator_plus {
+                background-color: greenyellow;
+            }
+
+            .calculator_body #cal_second  #operator_minus {
+                background-color: greenyellow;
+            }
+
+            .calculator_body #cal_thrid #operator_divide {
+                background-color: greenyellow;
+            }
+
+            .calculator_body #cal_fourth #operator_multiply {
+                background-color: greenyellow;
+            }
+
+            .calculator_body #cal_fourth #clear {
+                background-color: red;
+            }
+
+            .calculator_body #cal_fourth #result {
+                background-color: saddlebrown;
+            }
+
+
+          
+            
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="calculator_top">
+                <div id="cal_operator"></div>
+                <div id="cal_show_num"></div>
+            </div>
+            <div class="calculator_body">
+                <div id="cal_top">
+                    <div id="num_7">7</div>
+                    <div id="num_8">8</div>
+                    <div id="num_9">9</div>
+                    <div id="operator_plus">+</div>
+                </div>
+                <div id="cal_second">
+                    <div id="num_4">4</div>
+                    <div id="num_5">5</div>
+                    <div id="num_6">6</div>
+                    <div id="operator_minus">-</div>
+                </div>
+                <div id="cal_thrid">
+                    <div id="num_1">1</div>
+                    <div id="num_2">2</div>
+                    <div id="num_3">3</div>
+                    <div id="operator_divide">/</div>
+                </div>
+                <div id="cal_fourth">
+                    <div id="clear">C</div>
+                    <div id="num_0">0</div>
+                    <div id="result">=</div>
+                    <div id="operator_multiply">X</div>
+                </div>
+               
+            </div>
+        </div>
+
+        <script>
+
+            const $cal_show_num = document.querySelector('#cal_show_num');
+            const $cal_operator = document.querySelector('#cal_operator');
+            
+            const $num_7 = document.querySelector('#num_7');
+            const $num_8 = document.querySelector('#num_8');
+            const $num_9 = document.querySelector('#num_9');
+            const $num_6 = document.querySelector('#num_6');
+            const $num_5 = document.querySelector('#num_5');
+            const $num_4 = document.querySelector('#num_4');
+            const $num_3 = document.querySelector('#num_3');
+            const $num_2 = document.querySelector('#num_2');
+            const $num_1 = document.querySelector('#num_1');
+            const $num_0 = document.querySelector('#num_0');
+
+            
+            let $plus = document.querySelector('#operator_plus');
+            let $minus = document.querySelector('#operator_minus');
+            let $divide = document.querySelector('#operator_divide');
+            let $multiply = document.querySelector('#operator_multiply');
+            let $result = document.querySelector('#result');
+            let $clear = document.querySelector('#clear');
+            
+
+
+            // 클릭한 숫자를 저장할 변수
+            let number = "";
+            // 첫번째 숫자인 경우 저장할 변수
+            let firstNum = "";
+             // 두번째 숫자인 경우 저장할 변수
+            let secondNum = "";
+            // 연산자를 저장할 변수
+            let operator = "";
+
+            // 계산결과를 저장할 변수
+            let calResult = "";
+        
+            
+            const numberClick = (event) => {
+
+                // 클릭한 숫자를 변수에 저장한다
+                number  += event.target.textContent;
+                
+                // 클릭한 숫자가 연산자 클릭전에 입력된 숫자인지 판단
+                if (operator == "" || operator == undefined || operator == null) { 
+                    // 숫자를 화면에 보여준다
+                    $cal_show_num.textContent += number;
+                    firstNum += number;
+                    // 연산자 이후에 오는 숫자를 입력하기 위해 숫자를 저장하는 변수를 초기화 해준다
+                    number = "";
+                    return;
+                } 
+                
+                // $cal_show_num.textContent = "";
+                secondNum = number;
+                $cal_show_num.textContent += number;
+                console.log('secondNum: ' , secondNum);
+                
+
+            }
+
+
+            // 숫자를 클릭했을때 이벤트를 발생시켜야 한다
+            $num_7.addEventListener('click' , numberClick);
+            $num_8.addEventListener('click' , numberClick);
+            $num_9.addEventListener('click' , numberClick);
+            $num_6.addEventListener('click' , numberClick);
+            $num_5.addEventListener('click' , numberClick);
+            $num_4.addEventListener('click' , numberClick);
+            $num_3.addEventListener('click' , numberClick);
+            $num_2.addEventListener('click' , numberClick);
+            $num_1.addEventListener('click' , numberClick);
+            $num_0.addEventListener('click' , numberClick);
+            
+
+            const operClick = (event) => {
+                console.log('연산자: ' , event.target.textContent);
+
+                if (firstNum == "" || firstNum == undefined || firstNum == null) {
+                    alert('숫자를 먼저 입력후 연산자 입력이 가능합니다.');
+                    return;
+                }
+
+                operator = event.target.textContent;
+                $cal_operator.textContent = operator;
+            }
+
+
+            const resultClick = (event) =>  {
+                console.log('계산결과를 보여주기 위한 연산자: ' , event.target.textContent);
+
+                if (firstNum != "" && operator != "" && secondNum != "") {
+                    if (operator === "+") {
+                        calResult = Number(firstNum) + Number(secondNum);
+                    } else if (operator === "-") {
+                        calResult = Number(firstNum) - Number(secondNum);
+                    } else if (operator === "X") {
+                        calResult = Number(firstNum) * Number(secondNum);
+                    } else if (operator === "/") {
+                        calResult = Number(firstNum) / Number(secondNum);
+                    }
+
+                    $cal_show_num.textContent = calResult;
+                } else {
+                    alert('연산식이 올바르지 않습니다.');
+                    
+                }
+
+
+
+            }
+
+            // 연산자를 클릭했을때 이벤트를 발생시켜야 한다
+            $plus.addEventListener('click' , operClick);
+            $minus.addEventListener('click' , operClick);
+            $divide.addEventListener('click' , operClick);
+            $multiply.addEventListener('click' , operClick);
+            $result.addEventListener('click' , resultClick);
+            
+
+            const clearClick = (event) => {
+                $cal_operator.textContent = "";
+                $cal_show_num.textContent = "";
+                calResult = "";
+                firstNum = "";
+                operator = "";
+                secondNum = "";
+                number = "";
+                
+            }
+
+            $clear.addEventListener('click' , clearClick);
+
+        </script>
+    </body>
+</html>
