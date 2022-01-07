@@ -404,3 +404,65 @@ $button.addEventListener('click' , buttonClick);
 + [코드 리펙토링 진행 및 정리 내용](https://unique-wandflower-4cc.notion.site/23a9feee4f864226a0436efd962fa554)
 
 
+
+# 01월 07일
+
+## 계산기 리펙토링
+
+### 잘된점
++ 고차함수의 사용방법을 이해하고 적용할 수 있었다
++ 고차함수와 event 객체를 사용한 콜백함수의 차이를 이해할 수 있었다
++ [리펙토링 상세 정리 내용](https://unique-wandflower-4cc.notion.site/445bbba94df041799e07badfdc7ef2e5)
+
+### 리펙토링 내용
++ 숫자를 클릭할때 고차함수 적용
+```
+const numberClick = (number) => () => {
+      
+    if (!operator) {
+        num += number;
+        numberOne = num;
+        $cal_show_num.textContent = numberOne;
+        return;
+    }
+
+
+    if (!numberTwo) {
+        $cal_show_num.textContent = "";
+        num = "";   
+    }    
+
+
+    num += number;
+    numberTwo = num;
+    $cal_show_num.textContent = numberTwo;                
+}
+
+
+```
++ = 연산자를 클릭할때 event 객체를 사용한 콜백함수 적용
+```
+const operClick = (event) => {
+    if (numberOne) {
+        operator = event.target.textContent;
+        $cal_operator.textContent = operator;
+    }
+}
+```
++ C 버튼 클릭시 변수에 저장된 모든 값과 화면에 표시되는 모든 값 초기화
+```
+
+$clear.addEventListener('click' , () => {
+    $cal_show_num.textContent = "";
+    $cal_operator.textContent = "";
+    num = "";
+    numberOne = "";
+    numberTwo = "";
+    operator = "";
+    result = "";
+})
+
+
+```
+
+

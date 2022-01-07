@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>계산기</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+
+            [class = "container"] {
+                width: 400px;
+                height: 600px;
+                border: 1px solid black;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                margin-top: 50px;
+            }
+
+            .calculator_top {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                width: 360px;
+                height: 200px;
+                border: 1px solid red;
+
+            }
+
+            .calculator_top #cal_operator {
+                width: 100px;
+                height: 100px;
+                border: 1px solid black;
+                font-size: 60px;
+                vertical-align: middle;
+                color: rebeccapurple;
+            }
+
+            .calculator_top #cal_show_num {
+                width: 200px;
+                height: 100px;
+                border: 1px solid black;
+                text-align: center;
+                font-size: 60px;
+                color: purple;
+                vertical-align: middle;
+            }
+
+            .calculator_body {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                width: 360px;
+                height: 300px;
+                border: 1px solid darkblue;
+            }
+
+            .calculator_body #cal_top {
+                width: 340px;
+                height: 60px;
+                border: 1px solid red;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .calculator_body #cal_top div {
+                width: 50px;
+                height: 30px;
+                border: 1px solid green;
+                background-color: gray;
+                text-align: center;
+            }
+
+
+            .calculator_body #cal_second {
+                width: 340px;
+                height: 60px;
+                border: 1px solid red;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .calculator_body #cal_second div {
+                width: 50px;
+                height: 30px;
+                border: 1px solid green;
+                background-color: gray;
+                text-align: center;
+            }
+
+            .calculator_body #cal_thrid {
+                width: 340px;
+                height: 60px;
+                border: 1px solid red;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .calculator_body #cal_thrid div {
+                width: 50px;
+                height: 30px;
+                border: 1px solid green;
+                background-color: gray;
+                text-align: center;
+            }
+
+
+            .calculator_body  #cal_fourth {
+                width: 340px;
+                height: 30px;
+                border: 1px solid red;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                margin-top: 5px;
+            }
+
+            .calculator_body #cal_fourth div {
+                width: 50px;
+                height: 30px;
+                border: 1px solid green;
+                background-color: gray;
+                text-align: center;
+            }
+
+            .calculator_body #cal_top #operator_plus {
+                background-color: greenyellow;
+            }
+
+            .calculator_body #cal_second  #operator_minus {
+                background-color: greenyellow;
+            }
+
+            .calculator_body #cal_thrid #operator_divide {
+                background-color: greenyellow;
+            }
+
+            .calculator_body #cal_fourth #operator_multiply {
+                background-color: greenyellow;
+            }
+
+            .calculator_body #cal_fourth #clear {
+                background-color: red;
+            }
+
+            .calculator_body #cal_fourth #result {
+                background-color: saddlebrown;
+            }
+
+
+          
+            
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="calculator_top">
+                <div id="cal_operator"></div>
+                <div id="cal_show_num"></div>
+            </div>
+            <div class="calculator_body">
+                <div id="cal_top">
+                    <div id="num_7">7</div>
+                    <div id="num_8">8</div>
+                    <div id="num_9">9</div>
+                    <div id="operator_plus">+</div>
+                </div>
+                <div id="cal_second">
+                    <div id="num_4">4</div>
+                    <div id="num_5">5</div>
+                    <div id="num_6">6</div>
+                    <div id="operator_minus">-</div>
+                </div>
+                <div id="cal_thrid">
+                    <div id="num_1">1</div>
+                    <div id="num_2">2</div>
+                    <div id="num_3">3</div>
+                    <div id="operator_divide">/</div>
+                </div>
+                <div id="cal_fourth">
+                    <div id="clear">C</div>
+                    <div id="num_0">0</div>
+                    <div id="result">=</div>
+                    <div id="operator_multiply">X</div>
+                </div>
+               
+            </div>
+        </div>
+
+        <script>
+
+            const $cal_show_num = document.querySelector('#cal_show_num');
+            const $cal_operator = document.querySelector('#cal_operator');
+            
+            const $num_7 = document.querySelector('#num_7');
+            const $num_8 = document.querySelector('#num_8');
+            const $num_9 = document.querySelector('#num_9');
+            const $num_6 = document.querySelector('#num_6');
+            const $num_5 = document.querySelector('#num_5');
+            const $num_4 = document.querySelector('#num_4');
+            const $num_3 = document.querySelector('#num_3');
+            const $num_2 = document.querySelector('#num_2');
+            const $num_1 = document.querySelector('#num_1');
+            const $num_0 = document.querySelector('#num_0');
+
+            
+            let $plus = document.querySelector('#operator_plus');
+            let $minus = document.querySelector('#operator_minus');
+            let $divide = document.querySelector('#operator_divide');
+            let $multiply = document.querySelector('#operator_multiply');
+            let $result = document.querySelector('#result');
+            let $clear = document.querySelector('#clear');
+            
+            let num = "";
+            let numberOne = "";
+            let numberTwo = "";
+            let operator = "";
+            let result = "";
+            let firstResult = "";
+
+
+
+            const numberClick = (number) => () => {
+            
+
+                if (!operator) {
+                    num += number;
+                    numberOne = num;
+                    $cal_show_num.textContent = numberOne;
+                    return;
+                }
+
+
+                if (!numberTwo) {
+                    $cal_show_num.textContent = "";
+                    num = "";   
+                }    
+
+                if ( firstResult) {
+                    $cal_show_num.textContent = firstResult;
+                    num = "";
+
+                }
+
+
+                num += number;
+                numberTwo = num;
+                $cal_show_num.textContent = numberTwo;                
+            }
+
+
+            $num_7.addEventListener('click' , numberClick('7'));
+            $num_8.addEventListener('click' , numberClick('8'));
+            $num_9.addEventListener('click' , numberClick('9'));
+            $num_6.addEventListener('click' , numberClick('6'));
+            $num_5.addEventListener('click' , numberClick('5'));
+            $num_4.addEventListener('click' , numberClick('4'));
+            $num_3.addEventListener('click' , numberClick('3'));
+            $num_2.addEventListener('click' , numberClick('2'));
+            $num_1.addEventListener('click' , numberClick('1'));
+            $num_0.addEventListener('click' , numberClick('0'));
+
+            const operClick = (event) => {
+                if (numberOne) {
+                    operator = event.target.textContent;
+                    $cal_operator.textContent = operator;
+                }
+            }
+
+
+            $plus.addEventListener('click' , operClick);
+            $minus.addEventListener('click' , operClick);
+            $divide.addEventListener('click' , operClick);
+            $multiply.addEventListener('click' , operClick);
+
+            $result.addEventListener('click' , () => {
+                switch(operator) {
+                    case '+':
+                      if (firstResult != "" && firstResult != undefined && firstResult != null) {
+                        firstResult = parseInt(firstResult) + parseInt(numberTwo); 
+                        console.log('firstResult: ' , firstResult);
+                        break;
+                      } 
+
+                      result = parseInt(numberOne) + parseInt(numberTwo);
+                      firstResult = parseInt(result);
+                     
+                      break;
+                    case '-':
+                        result = parseInt(numberOne) - parseInt(numberTwo);
+                        break;
+                    case 'X':
+                        result = parseInt(numberOne) * parseInt(numberTwo);
+                        break;
+                    case '/':
+                        result = parseInt(numberOne) / parseInt(numberTwo);
+                        break;
+                }
+                result = firstResult;
+                $cal_show_num.textContent = result;
+                $cal_operator.textContent = "=";
+                num = "";
+                numberOne = "";
+                numberTwo = "";
+                result = "";
+
+
+
+
+            })  
+
+
+
+            $clear.addEventListener('click' , () => {
+                $cal_show_num.textContent = "";
+                $cal_operator.textContent = "";
+                num = "";
+                numberOne = "";
+                numberTwo = "";
+                operator = "";
+                result = "";
+                firstesult = "";
+            })
+
+
+
+        </script>
+    </body>
+</html>
