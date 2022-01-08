@@ -233,13 +233,11 @@
             let numberTwo = "";
             let operator = "";
             let result = "";
-            let firstResult = "";
+            let resultNum;
 
 
 
             const numberClick = (number) => () => {
-            
-
                 if (!operator) {
                     num += number;
                     numberOne = num;
@@ -247,18 +245,10 @@
                     return;
                 }
 
-
                 if (!numberTwo) {
                     $cal_show_num.textContent = "";
                     num = "";   
                 }    
-
-                if ( firstResult) {
-                    $cal_show_num.textContent = firstResult;
-                    num = "";
-
-                }
-
 
                 num += number;
                 numberTwo = num;
@@ -293,36 +283,27 @@
             $result.addEventListener('click' , () => {
                 switch(operator) {
                     case '+':
-                      if (firstResult != "" && firstResult != undefined && firstResult != null) {
-                        firstResult = parseInt(firstResult) + parseInt(numberTwo); 
-                        console.log('firstResult: ' , firstResult);
+                        result = parseInt(numberOne) + parseInt(numberTwo);                       
                         break;
-                      } 
-
-                      result = parseInt(numberOne) + parseInt(numberTwo);
-                      firstResult = parseInt(result);
-                     
-                      break;
                     case '-':
                         result = parseInt(numberOne) - parseInt(numberTwo);
                         break;
                     case 'X':
-                        result = parseInt(numberOne) * parseInt(numberTwo);
+                        result = parseInt(numberOne) * parseInt(numberTwo);                        
                         break;
                     case '/':
                         result = parseInt(numberOne) / parseInt(numberTwo);
                         break;
                 }
-                result = firstResult;
-                $cal_show_num.textContent = result;
+
+                resultNum = parseInt(result);
+                numberOne = resultNum;
+                $cal_show_num.textContent = numberOne;
                 $cal_operator.textContent = "=";
                 num = "";
-                numberOne = "";
                 numberTwo = "";
                 result = "";
-
-
-
+                operator = "";
 
             })  
 

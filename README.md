@@ -466,3 +466,63 @@ $clear.addEventListener('click' , () => {
 ```
 
 
+
+# 01월 08일
+## 계산기 리펙토링
+### 리펙토링 방향
++ 연속 계산이 가능하도록 수정
++ 첫번째 결과값을 resultNum이라는 변수에 담아놓는다
++ 첫번째 숫자를 저장하는 변수에 resultNum을 저장한다
++ 연산자 변수와 두번째 숫자를 저장하는 변수를 초기화 시켜준다
++ 연산자와 두번째 숫자를 클릭한다
++ 그러면 = 연산자를 클릭했을때 resultNum을 담고있는 numberOne 변수와 두번째 숫자가 연산이 된다
+```
+const numberClick = (number) => () => {
+    if (!operator) {
+        num += number;
+        numberOne = num;
+        $cal_show_num.textContent = numberOne;
+        return;
+    }
+
+    if (!numberTwo) {
+        $cal_show_num.textContent = "";
+        num = "";   
+    }    
+
+    num += number;
+    numberTwo = num;
+    $cal_show_num.textContent = numberTwo;                
+}
+
+
+```
+
+
+```
+$result.addEventListener('click' , () => {
+          switch(operator) {
+              case '+':
+                  result = parseInt(numberOne) + parseInt(numberTwo);                       
+                  break;
+              case '-':
+                  result = parseInt(numberOne) - parseInt(numberTwo);
+                  break;
+              case 'X':
+                  result = parseInt(numberOne) * parseInt(numberTwo);                        
+                  break;
+              case '/':
+                  result = parseInt(numberOne) / parseInt(numberTwo);
+                  break;
+          }
+
+          resultNum = parseInt(result);
+          $cal_show_num.textContent = resultNum;
+          $cal_operator.textContent = "=";
+          num = "";
+          numberOne = resultNum;
+          numberTwo = "";
+          result = "";
+          operator = "";
+})  
+```
