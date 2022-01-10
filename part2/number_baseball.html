@@ -23,7 +23,6 @@
         let status = false;
         let outCount = 0;
 
-        // 만난 에러 Uncaught SyntaxError: Missing initializer in const declaration
         const myArrays = [];
         const comArrays = [];
 
@@ -69,10 +68,9 @@
 
 
         const checkValues = () => {
-            // 스트라이크
+            
             let myAnswer = "";
             let comAnswer = "";
-            // Uncaught TypeError: Assignment to constant variable.
             let strikeCount = 0;
             let ballCount = 0;
             outCount = 0;
@@ -118,15 +116,6 @@
 
                 $small.textContent = myAnswer + ' 스트라이크: ' + strikeCount + ' 볼: ' + ballCount + ' 아웃: ' + outCount;
             }
-            
-            
-
-
-
-          
-
-           
-
          
 
         }
