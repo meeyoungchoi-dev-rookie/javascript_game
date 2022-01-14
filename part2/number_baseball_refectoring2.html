@@ -14,29 +14,26 @@
             <button type="submit">전송</button>
         </form>
         <div id="logs"></div>
-        <div id="outs"></div>
+        현재까지 outCount: <span id="out">0</span>
 
         <script>
             const $form = document.querySelector("form");
             const $input = document.querySelector("input");
             const $logs = document.querySelector("#logs");
+            const $out = document.querySelector("#out");
             
             let inputData = "";
-            let arr = [];
             let comArr = [];
             let set = "";
-            let comData = "";
-            let arrData = "";
             let overStatus = true;
             let startStatus = true;
             let strikeCount = 0;
             let ballCount = 0;
             let outCount = 0;
-            let innerHTML = "";
             const alreadyNum = [];
 
             const checkValue = (inputData) => {
-               
+               console.log(typeof inputData);
                 let status = "";
                 if (inputData.length != 4) {
                     if (inputData.length < 4 || inputData.length > 4) {
@@ -48,10 +45,8 @@
                 }
 
               
-                // 중복된 값이 있는지 검사
+                // 중복된 값이 있는지 검사 하기 위해 Set 객체 사용
                 set = new Set(inputData);
-                console.log('중복 제거전 길이: ' , inputData.length);
-                console.log('중복 제거후 길이: ' , set.size);
 
                 if (inputData.length !== set.size) {
                     return alert('중복된 값은 올수 없습니다.');    
@@ -62,9 +57,8 @@
             }
 
             const comValue = () => {
-              
-           
                comArr = [];
+
                 for (let i = 0; i < 4; i++) {
                     let randomNum = Math.floor(Math.random() * 9) + 1;
 
@@ -76,13 +70,22 @@
                 }
             }
 
+
+
+            const printResult = () => {
+                let text = $logs.textContent;
+                text = " 나: " + inputData + " strike: " + strikeCount + " ball: " + ballCount + " outCount: " + outCount;
+            
+                $logs.append(text , document.createElement("br"));
+            }
+
+
             const gameStart = () => {
                 // 게임 진행중
                 strikeCount = 0;
                 ballCount = 0;
                 startStatus = false;
                 overStatus = false;
-                outCount = 0;
                 
                 alreadyNum.push(inputData);
 
@@ -97,81 +100,66 @@
 
                 // 홈런
                 if (comArr.join("") == inputData) {
-                   
+                    console.log(typeof comArr.join(""));
                     startStatus = true;
                     overStatus = true;
                     
                     outCount = 0;
-                    let text = $logs.textContent;
-                    text = " 나: " + inputData + " strike: " + strikeCount + " ball: " + ballCount + " outCount: " + outCount;
-                
-                    $logs.append(text , document.createElement("br"));
+                    printResult();
+                   
                     $logs.append("홈런 " , document.createElement("br"));
                     return;
                 } 
   
                 for (let i = 0; i < comArr.length; i++) {
-                    let j = inputData.length - 1;
-                    while (j <= inputData.length - 1 && j >= 0) {
-                        console.log('j: ' + j);
-                    
-                        if (parseInt(comArr[i]) == parseInt(inputData[j]) && i == j) {
-                            strikeCount = parseInt(strikeCount) + 1;
-                            
-                        } 
-                        if (parseInt(comArr[i]) == parseInt(inputData[j]) && i != j) {
-                            ballCount = parseInt(ballCount) + 1;
-                            console.log("ball: " + ballCount);
+                    const index = inputData.indexOf(comArr[i]);
+                    if (index > -1) { // 일치하는 숫자 발견
+                        if (index === i) { // 자릿수도 같음
+                            strikeCount = strikeCount + 1;
+                        } else { // 숫자만 같음
+                            ballCount = ballCount + 1;
                         }
-
-                        j -= 1;
                     }
-                    
                 }
 
                 if (strikeCount == 0 && ballCount == 0) {
-                    console.log(outCount);
                     outCount = parseInt(outCount) + 1;
-                    console.log(outCount);
-                    
-                 
-                    if (outCount == 3) {
-                        startStatus = true;
-                        overStatus = true;
-                        outCount = 0;
-                        $logs.append("패배!! 3OUT!! 정답: " + comArr.join("") , document.createElement("br"));
-                        return;
-                    }
+                    $out.textContent = "";
+                    $out.textContent = outCount;
                 }
 
-                let text = $logs.textContent;
-                text = " 나: " + inputData + " strike: " + strikeCount + " ball: " + ballCount + " outCount: " + outCount;
-                
-                $logs.append(text , document.createElement("br"));
+                if (outCount == 3) {
+                    startStatus = true;
+                    overStatus = true;
+                    outCount = 0;
+                    $logs.append("패배!! 3OUT!! 정답: " + comArr.join("") , document.createElement("br"));
+                    return;
+                }
+
+                printResult();
                 console.log('컴: ' + comArr.join("") + " 나: " + inputData + " strike: " + strikeCount + " ball: " + ballCount + " outCount: " + outCount  );
                 $input.value = "";
             }
 
+           
+             
+                   
         
-
             const dataSubmit = (event) => {
                 
                 event.preventDefault();
-                console.log('데이터: ' , $input.value);
-               
+             
                 inputData = $input.value;
              
                 if(!checkValue(inputData)) {
                     return;
                 }
 
-                if (overStatus == true && startStatus == true &&  checkValue(inputData)) {
-                    comValue();
-                   
+                if (overStatus == true && startStatus == true ) {
+                    comValue();       
                 } 
 
-                gameStart();
-                
+                gameStart();                
             }
 
             $form.addEventListener('submit' , dataSubmit);
