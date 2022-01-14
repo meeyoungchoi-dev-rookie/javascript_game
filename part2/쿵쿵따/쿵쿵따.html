@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>쿵쿵따 게임</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <h1>쿵쿵따 게임</h1>
+        <div>
+            <span id="order">1</span>번 참가자
+            <span>제시어:</span><span id="word"></span>
+        </div>
+        <div>
+            <input type="text" placeholder="제시어를 입력하세요"/>
+            <button type="button">확인</button>
+        </div>
+
+
+        <script>
+            // 확인 버튼 html 요소 선택
+            const $button = document.querySelector('button');
+
+            // 현재 순서 html 요소 선택
+            const $order = document.querySelector('#order');
+            let nowOrder; 
+
+            // 게임에 참가할 총 인원수 입력
+            const players = Number(prompt('게임에 참가할 인원을 입력하세요'));
+          
+            // 제시어가 입력될 input 요소 선택
+            const $input = document.querySelector('input');
+        
+            // 제시어를 저장할 html 요소 선택
+            const $word = document.querySelector('#word');
+
+            // 제시어를 저장할 변수
+            let newWord = "";
+
+            // 확인 버튼이 클릭되었을때 실행될 콜백함수
+            function buttonClicked() {
+
+                // 사용자가 입력한 값을 가져온다
+                let inputWord = "";
+                inputWord = $input.value;
+                
+                // 화면에 표시될 제시어를 저장하기 위한 변수
+                let comWord = "";
+                comWord = $word.textContent;
+            
+                // 제시어 존재 여부 및 끝말잇기 규칙에 위배되는지 검사 하는 조건문
+                if (inputWord.length === 3 &&  (comWord[comWord.length - 1] === inputWord[0] || !newWord)) {
+                   
+                    // 사용자로 부터 입력 받은 단어를 변수에 저장한다
+                    newWord = inputWord;
+
+                    // 제시어를 보여줄 html 요소에 값을 넣어준다
+                    $word.textContent = newWord;
+                
+                    // 다음 차례이동
+                    nowOrder = Number($order.textContent);
+                    if (nowOrder + 1 > players) {
+                        nowOrder = 1;
+                        $order.textContent = Number(nowOrder);
+                    } else {
+                        nowOrder += 1;
+                        $order.textContent = Number(nowOrder);
+                    }
+
+                } else {
+                    alert('올바르지 않은 단어입니다.');
+                }
+            }
+
+            // 확인 버튼을 클릭했을때 이벤트를 등록한다
+            $button.addEventListener('click' , buttonClicked);
+        </script>
+    </body>
+</html>

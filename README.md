@@ -653,6 +653,7 @@ $result.addEventListener('click' , () => {
 
 ## 잘된점
 + 리펙토링이 성공적으로 잘 되었다
++ [리펙토링2차 진행 내용 및 정리](https://unique-wandflower-4cc.notion.site/2-06ce1cc7cc314f4fa4b75d3548182827)
 
 ## 배운점
 - 코드에서 복사 붙여넣기가 반복되면 중복되는 로직이다

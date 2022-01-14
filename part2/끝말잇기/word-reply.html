@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>끝말잇기 게임</title>
+    </head>
+    <body>
+        <h1>끝말잇기 게임</h1>
+        <div>
+            <span id="order">1</span>번째 사람 
+            제시어: <span id="word"></span>
+        </div>
+        <div>
+            <input type="text" placeholder="제시어를 입력하세요"/>
+            <button type="button">확인</button>
+        </div>
+
+
+
+        <script>
+
+            let inputWord = ""; // 입력한 제시어를 저장할 변수
+            let savedWord; // 태그의 제시어를 저장할 변수
+            let comWord = "";   // 태그에서 가져온 제시어를 저장할 변수
+            let nowOrder;
+            const players = Number(prompt('게임에 참여할 인원 수를 입력하세요'));
+            const $input = document.querySelector('input');
+            const $button = document.querySelector('button');
+            const $word = document.querySelector('#word');
+            const $order = document.querySelector('#order');
+
+
+            const inputEvent = (event) =>  {
+                console.log('입력한 제시어: ' , event.target.value);
+                inputWord = event.target.value;
+            }
+            
+            $input.addEventListener('input' , inputEvent); 
+
+
+            const buttonClick = () => {
+
+                if (!savedWord) {
+                    
+                    savedWord = inputWord;
+                    $word.textContent = savedWord;
+
+                    nowOrder = Number($order.textContent);
+                    
+                    if (nowOrder + 1 > players) {
+                        nowOrder = 1;
+                        $order.textContent = Number(nowOrder);
+                        $input.value = "";
+                    } else  {
+                        nowOrder = Number($order.textContent);
+                        nowOrder += 1;
+                        $order.textContent = Number(nowOrder);
+                        $input.value = "";
+                    }
+
+
+                } else {
+
+                        comWord = $word.textContent;
+                    
+                        console.log('현재 제시어: ' , comWord);
+                        console.log('입력받은 제시어: ' , inputWord);
+
+                        if (comWord[comWord.length - 1] === inputWord[0]) {
+                            
+                        savedWord = inputWord;
+                        $word.textContent = savedWord;
+
+                        nowOrder = Number($order.textContent);
+    
+                        if (nowOrder + 1 > players) {
+                            nowOrder = 1;
+                            $order.textContent = Number(nowOrder);
+                            $input.value = "";
+                        } else  {
+                            nowOrder = Number($order.textContent);
+                            nowOrder += 1;
+                            $order.textContent = Number(nowOrder);
+                            $input.value = "";
+                        }
+
+                    } else {
+                        alert('다시 입력 하세요');
+                        $word.value = "";
+                    }
+                }
+            }
+
+            $button.addEventListener('click' , buttonClick);
+
+
+        </script>
+
+
+
+    </body>
+</html>

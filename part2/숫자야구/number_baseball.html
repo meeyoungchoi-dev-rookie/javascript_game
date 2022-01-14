@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>숫자야구</title>
+    </head>
+    <body>
+        <h1>숫자야구 게임</h1>
+        <form id="form">
+            <input type="text" placeholder="4자리 숫자를 입력하세요"/>
+            <button type="submit">확인</button>
+        </form>
+        <div>
+            <h2>결과</h2>
+            컴퓨터번호: <span id="comNumber"></span>
+            내번호: <span id="myNumber"></span>
+            스트라이크: <span id="strikeCount">0</span>
+            볼: <span id="ballCount">0</span>
+            아웃: <span id="realOutCount">0</span>
+        </div>
+    </body>
+    <script>
+        const $input = document.querySelector('input');
+        const $button = document.querySelector('button');
+        const $form = document.querySelector('#form');
+        const $small = document.querySelector('small');
+        const $comNumber = document.querySelector('#comNumber');
+
+        const $myNumber = document.querySelector('#myNumber');
+        const $strikeCount = document.querySelector('#strikeCount');
+        const $ballCount = document.querySelector('#ballCount');
+        const $realOutCount = document.querySelector('#realOutCount');
+
+        let gameStatus = false;
+        let overStatus = false;
+
+        let strikeCount;
+        let ballCount;
+        let outCount;
+        let realOutCount;
+
+        const myArrays = [];
+        const comArrays = [];
+
+        const getValues = (inputData) => {
+
+            for (let i = 0 ; i < inputData.length; i++) {
+                myArrays[i] = inputData[i];
+            }
+
+            console.log('배열: ' , myArrays);
+        }
+
+
+        const getRandomArbitrary = (min, max) => {
+            return parseInt(Math.random() * (max - min) + min);
+        }
+
+
+        const getComvalues = () => {
+
+            for (let i = 0; i < 4; i++) {
+                const data = getRandomArbitrary(1, 10);
+                comArrays[i] = data;
+            }
+
+            // 컴퓨터 값 중복 검사
+            const temp = comArrays;
+          
+            let sameCount = 0;
+
+            for (let i = 0; i < temp.length; i++) {
+                for ( let j = 0; j < comArrays.length; j++ ) {
+                    if (temp[i] == comArrays[j]) {
+                        sameCount += 1;
+                        if (sameCount == 2) {
+                            const data2 = getRandomArbitrary(1, 10);
+                            comArrays[j] = data2;
+                        }
+                    }
+                }
+            }
+
+            console.log('컴퓨터 배열: ' , comArrays);
+        }
+
+
+        const checkValues = () => {
+            gameStatus = true; // 게임 진행중
+            let myAnswer = "";
+            let comAnswer = "";
+            
+           
+           
+            strikeCount = parseInt($strikeCount.textContent);
+            ballCount = parseInt($ballCount.textContent);
+            realOutCount = parseInt($realOutCount.textContent);
+
+            for (let i = 0; i < myArrays.length; i++) {
+                myAnswer += myArrays[i];
+            }
+            $myNumber.textContent = parseInt(myAnswer);
+
+            for (let i = 0; i < comArrays.length; i++) {
+                comAnswer += comArrays[i];
+            }
+
+            if (parseInt(myAnswer) == parseInt(comAnswer)) {
+                $myNumber.textContent = parseInt(myAnswer);
+                $comNumber.textContent = parseInt(comAnswer);
+                $strikeCount.textContent = strikeCount;
+                $ballCount.textContent = ballCount;
+                $realOutCount.textContent = realOutCount;
+                overStatus = true;
+                gameStatus = false;
+                return;
+            } else {
+              
+                strikeCount = 0;
+                ballCount = 0;
+                realOutCount = 0;
+                    
+                for (let i = 0; i < myArrays.length; i++) {
+                    
+                    for (let j = 0; j < comArrays.length; j++) {
+
+                       if (myArrays[i] == comArrays[j] && i === j) {
+                            strikeCount = parseInt(strikeCount) + 1;
+                            $strikeCount.textContent = parseInt(strikeCount);
+                            gameStatus = true;
+                            overStatus = false;
+                        } else if (myArrays[i] == comArrays[j] && i != j) {
+                            ballCount = ballCount + 1;
+                            $ballCount.textContent = parseInt(ballCount);
+                            
+                            gameStatus = true;
+                            overStatus = false;
+                        }
+                    }
+                }
+               
+                if (strikeCount == 0 && ballCount == 0) {
+                    realOutCount = parseInt(realOutCount) + 1;
+                    $strikeCount.textContent = strikeCount;
+                    $ballCount.textContent = ballCount;
+                    $realOutCount.textContent = realOutCount;
+                    
+                   
+                    if (realOutCount == 3) {
+                        console.log('out: ' + realOutCount);
+                        overStatus = true;
+                        gameStatus = false;
+                        $comNumber.textContent = parseInt(comAnswer);
+                        
+                        alert('Game Over!!');
+                    }
+            
+                    return;
+                }
+                
+
+                
+                
+                $strikeCount.textContent = strikeCount;
+                $ballCount.textContent = ballCount;
+                $realOutCount.textContent = realOutCount;
+            }
+         
+
+        }
+
+
+        const checkNumber = (event) => {
+            event.preventDefault();
+            const inputData = $input.value;
+            console.log('입력한 값: ' , inputData);
+
+            
+            
+            // 4자리 숫자인지 검사
+            if (inputData.length != 4) {
+                alert('4자리 숫자를 입력하세요');
+                return;
+            }
+
+            $myNumber.textContent = "";
+            $comNumber.textContent = "";
+            getValues(inputData);
+            
+            
+            if (gameStatus == false || overStatus == true) {
+                getComvalues();
+           
+                $strikeCount.textContent = 0;
+                $ballCount.textContent = 0;
+                $realOutCount.textContent = 0;
+            
+            }
+            
+            
+
+            checkValues();
+        }
+        $form.addEventListener('submit' , checkNumber);
+
+
+    </script>
+</html>

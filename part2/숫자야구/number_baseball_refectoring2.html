@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>숫자야구</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <h1>숫자야구</h1>    
+        <form method="post">
+            <input type="text" placeholder="4자리 숫자를 입력하세요"/>
+            <button type="submit">전송</button>
+        </form>
+        <div id="logs"></div>
+        현재까지 outCount: <span id="out">0</span>
+
+        <script>
+            const $form = document.querySelector("form");
+            const $input = document.querySelector("input");
+            const $logs = document.querySelector("#logs");
+            const $out = document.querySelector("#out");
+            
+            let inputData = "";
+            let comArr = [];
+            let set = "";
+            let overStatus = true;
+            let startStatus = true;
+            let strikeCount = 0;
+            let ballCount = 0;
+            let outCount = 0;
+            const alreadyNum = [];
+
+            const checkValue = (inputData) => {
+               console.log(typeof inputData);
+                let status = "";
+                if (inputData.length != 4) {
+                    if (inputData.length < 4 || inputData.length > 4) {
+                       return alert('숫자는 4자리여야 합니다.');
+                       
+                    } else {
+                       return alert('4자리 숫자를 입력하세요');
+                    }
+                }
+
+              
+                // 중복된 값이 있는지 검사 하기 위해 Set 객체 사용
+                set = new Set(inputData);
+
+                if (inputData.length !== set.size) {
+                    return alert('중복된 값은 올수 없습니다.');    
+                } 
+                    
+                 return true;
+                
+            }
+
+            const comValue = () => {
+               comArr = [];
+
+                for (let i = 0; i < 4; i++) {
+                    let randomNum = Math.floor(Math.random() * 9) + 1;
+
+                    if (comArr.indexOf(randomNum) === -1) {
+                        comArr.push(randomNum);
+                    } else {
+                       i--;
+                    }                
+                }
+            }
+
+
+
+            const printResult = () => {
+                let text = $logs.textContent;
+                text = " 나: " + inputData + " strike: " + strikeCount + " ball: " + ballCount + " outCount: " + outCount;
+            
+                $logs.append(text , document.createElement("br"));
+            }
+
+
+            const gameStart = () => {
+                // 게임 진행중
+                strikeCount = 0;
+                ballCount = 0;
+                startStatus = false;
+                overStatus = false;
+                
+                alreadyNum.push(inputData);
+
+                if(alreadyNum.length > 9) {
+                    startStatus = true;
+                    overStatus = true;
+                    outCount = 0;
+                    $logs.append("패배!! 정답: " + comArr.join("") , document.createElement("br"));
+                    return;
+                }
+                    
+
+                // 홈런
+                if (comArr.join("") == inputData) {
+                    console.log(typeof comArr.join(""));
+                    startStatus = true;
+                    overStatus = true;
+                    
+                    outCount = 0;
+                    printResult();
+                   
+                    $logs.append("홈런 " , document.createElement("br"));
+                    return;
+                } 
+  
+                for (let i = 0; i < comArr.length; i++) {
+                    const index = inputData.indexOf(comArr[i]);
+                    if (index > -1) { // 일치하는 숫자 발견
+                        if (index === i) { // 자릿수도 같음
+                            strikeCount = strikeCount + 1;
+                        } else { // 숫자만 같음
+                            ballCount = ballCount + 1;
+                        }
+                    }
+                }
+
+                if (strikeCount == 0 && ballCount == 0) {
+                    outCount = parseInt(outCount) + 1;
+                    $out.textContent = "";
+                    $out.textContent = outCount;
+                }
+
+                if (outCount == 3) {
+                    startStatus = true;
+                    overStatus = true;
+                    outCount = 0;
+                    $logs.append("패배!! 3OUT!! 정답: " + comArr.join("") , document.createElement("br"));
+                    return;
+                }
+
+                printResult();
+                console.log('컴: ' + comArr.join("") + " 나: " + inputData + " strike: " + strikeCount + " ball: " + ballCount + " outCount: " + outCount  );
+                $input.value = "";
+            }
+
+           
+             
+                   
+        
+            const dataSubmit = (event) => {
+                
+                event.preventDefault();
+             
+                inputData = $input.value;
+             
+                if(!checkValue(inputData)) {
+                    return;
+                }
+
+                if (overStatus == true && startStatus == true ) {
+                    comValue();       
+                } 
+
+                gameStart();                
+            }
+
+            $form.addEventListener('submit' , dataSubmit);
+        </script>
+    </body>
+
+
+
+
+
+</html>
