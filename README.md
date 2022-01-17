@@ -662,3 +662,49 @@ $result.addEventListener('click' , () => {
 - indexOf를 사용하여 배열에서 일치하는 값이 있는지 찾는다
 - append 함수를 사용하여 여러개의 문자열과 여러 요소를 특정 요소에 넣어줄수 있다
 - `event.preventDefault` : submit 타입인 버튼을 클릭했을때 브라우저가 새로고침 되는 것을 막아준다
+
+# 01월 17일
+## 잘된점
++ 로또 추첨기 구조도를 그리고 직접 코딩해 보았다
++ 로또 번호 중복을 제거하기 위해 indexOf 함수를 사용하였다
++ 로또 번호가 화면에 보여질때 일정 시간 이후에 실행시키기 위해 setTimeOut 함수를 사용하였다
++ [로또 구조도 및 코딩](https://unique-wandflower-4cc.notion.site/de5ee7df9fa9495794b6f1fe1e7cb07e)
++ [setTimeOut 과 setInterval 차이](https://unique-wandflower-4cc.notion.site/setInterval-vs-setTimeOut-382a7e5bcaf0464d9309abb808a1188a)
+
+## 배운점
++ indexOf 함수를 사용하여 배열의 중복을 제거할 수 있다
++ 배열에 중복된 값이 있는경우 해당 데이터의 인덱스를 반환해 주고 
++ 중복된 값이 없는 경우 -1을 반환해준다
+```
+for (let i = 0; i < 7; i++) {
+    let index = Math.floor(Math.random() * 49);
+    
+    if (i == 0) {
+        lotts.push(numbers[index]);
+        lottsData.push(numbers[index]);
+    } else {
+        let id = lottsData.indexOf(numbers[index]);    
+        if (id > -1) {
+            i--;
+        } else {
+            lotts.push(numbers[index]);
+            lottsData.push(numbers[index]);
+        }
+    }
+}   
+```
+
++ SetTimeOut
+```
+    setTimeOut(함수 , 시간)
+```
++ 일정 시간 후에 작업을 실행한다
++ 즉 , 지정된 시간에 작업이 딱 한번만 실행된다
+
++ setInterval
++ 일정한 시간 간격으로 작업을 반복적으로 실행한다
+
+
+## 개선할 점
++ 로또 번호를 화면에 보여줄때 div 요소를 미리 만들어 놓지 말고
++ 일정 시간 간격으로 div 요소가 만들어지고 데이터가 들어가도록 리펙토링 진행

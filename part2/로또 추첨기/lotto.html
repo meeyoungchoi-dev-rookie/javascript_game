@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .ok {
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .ball {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            border-radius: 50%;
+            margin-left: 10px;
+            text-align: center;
+            line-height: 1.25rem;
+           
+        }
+
+        #ball_7 {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <span>당점 번호:</span>
+    <div class="ok">
+        
+        <div id="ball_1" class="ball"></div> 
+        <div id="ball_2" class="ball"></div> 
+        <div id="ball_3" class="ball"></div> 
+        <div id="ball_4" class="ball"></div> 
+        <div id="ball_5" class="ball"></div> 
+        <div id="ball_6" class="ball"></div> 
+        <div id="ball_7" class="ball"></div> 
+    </div>
+   
+     <script>
+         let lotts = [];
+         let numbers = [];
+         let lottsData = [];
+
+        let $ball_1  = document.querySelector("#ball_1");
+        let $ball_2  = document.querySelector("#ball_2");
+        let $ball_3  = document.querySelector("#ball_3");
+        let $ball_4  = document.querySelector("#ball_4");
+        let $ball_5  = document.querySelector("#ball_5");
+        let $ball_6  = document.querySelector("#ball_6");
+        let $ball_7 = document.querySelector("#ball_7");
+
+        const inputArray = () => {
+            for (let i = 0; i < 50; i++) {
+                 numbers[i] = i + 1;   
+            }
+        }
+
+        const gameStart = () => {
+            inputArray();
+        }
+
+        const randomLotto = () => {
+            for (let i = 0; i < 7; i++) {
+                let index = Math.floor(Math.random() * 49);
+                
+                if (i == 0) {
+                    lotts.push(numbers[index]);
+                    lottsData.push(numbers[index]);
+                } else {
+                    let id = lottsData.indexOf(numbers[index]);    
+                    if (id > -1) {
+                        i--;
+                    } else {
+                        lotts.push(numbers[index]);
+                        lottsData.push(numbers[index]);
+                    }
+                }
+            }   
+        }
+
+        const printLottos = ()  => {
+            setTimeout($ball_1.append(lotts[0]) , 10000);
+            setTimeout($ball_2.append(lotts[1]) , 10000);
+            setTimeout($ball_3.append(lotts[2]) , 10000);
+            setTimeout($ball_4.append(lotts[3]) , 10000);
+            setTimeout($ball_5.append(lotts[4]) , 10000);
+            setTimeout($ball_6.append(lotts[5]) , 10000);
+            setTimeout($ball_7.append(lotts[6]) , 10000);
+        }
+
+         gameStart();
+         randomLotto();
+         printLottos();
+    
+     </script>
+</body>
+</html>
