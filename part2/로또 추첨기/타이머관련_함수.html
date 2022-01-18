@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button type="button">종료</button>
+
+    <script>
+        const $button = document.querySelector("button");
+        
+        let interId;
+
+        const printOnce = () => {
+            console.log("1234!!");
+        }
+
+        // setTimeout 함수가 호출되고 2초 후에 printOnce 함수가 실행되겠다
+        // 한번만 실행되고 끝난다
+        setTimeout(printOnce ,  5000);
+
+        const printDuringTiem = () => {
+            console.log("매 2초 마다 한번씩 실행~!!");
+        }
+
+        // 매 2초마다 콜백함수가 반복 실행된다
+        // 주어진 시간마다 동작을 반복 시킬수 있다
+        // 자신의 id가 반환된다 (0이 아닌 숫자를 반환한다)
+        interId = setInterval(printDuringTiem , 1000);
+        console.log("interId: " , interId);
+
+
+        //clearInterval 을 사용하여 주기적으로 동작하던 setInterval 함수를 
+        // 종료시킬수 있다
+        const stopInterval = () => {
+            clearInterval(interId);
+        }
+
+        $button.addEventListener("click" , stopInterval);
+    </script>
+
+
+
+<!-- 내용 정리
+    setTimeout 메소드는 정해진 시간이 지나고 나면 주어진 함수를 실행한다
+    setInterval 메소드는 시간 간격에 따라 주어진 함수를 반복 실행한다
+    setInterval 메소드는 0이 아닌 숫자를 반환하는데 이는 타이머의 ID이다
+    clearInterval 메소드는 주어진 ID에 해당하는 타이머를 제거한다 (멈춘다)
+-->
+</body>
+</html>

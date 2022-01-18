@@ -708,3 +708,55 @@ for (let i = 0; i < 7; i++) {
 ## 개선할 점
 + 로또 번호를 화면에 보여줄때 div 요소를 미리 만들어 놓지 말고
 + 일정 시간 간격으로 div 요소가 만들어지고 데이터가 들어가도록 리펙토링 진행
+
+
+# 01월 18일
+
+## 로또 추점기 2차 리펙토링 진행
+
+### 잘된점
++ 로또 추첨기 리펙토링 진행
++ 로또 번호를 화면에 보여줄때 div 요소가 하나씩 생성되도록 개선
++ 일정 시간 간격으로 div 요소가 만들어지고 다음 div 요소가 화면에 보여지도록 개선
++ Document 객체를 사용하여 HTML 요소를 다루는 법에 대해 확실하게 이해함
++ 타이머 관련 함수 setInterval 과 setTimeout에 대한 정리
++ [로또 추첨기 리펙토링 과정](https://unique-wandflower-4cc.notion.site/2-3a8356d588634ab88aa1682a2d316ead)
+
+### 배운점
++ setInterval은 일정 시간 간격 마다 작업을 반복적으로 실행한다
+```
+var timer1 = setInterval(function(){
+        console.log("Hello");
+}, 1000)
+
+```
++ setTimeout은 지정된 시간에 작업이 딱 한번만 실행된다
+```
+var timer2 = setTimeout(function(){
+	console.log("Hello World");
+}, 1000)
+
+```
++ createElement 메소드는 HTML 요소를 만들어 반환해주는 역할을 한다
+```
+document.createElement('p');
+```
+
++ appendChild 메소드는 Document 내 요소에 자식 요소를 추가할 때 사용한다
+```
+const p = document.crateElement("p");
+document.body.appendChild(p);
+
+```
++ append는 요소에 자식요소를 추가한다는 점에서 같으나 반환데이터가 없고
++ 요소에 문자열도 추가가 가능하다
++ [appendChild 와 append 차이점 정리](https://unique-wandflower-4cc.notion.site/Document-153691a45a4a4acf9a3fc4eeb6978c84)
++ [타이머 관련 함수 정리](https://unique-wandflower-4cc.notion.site/c88fdbace9664768a6bdf71393c4b86f)
+
+
+
+### 개선할 점
++ 로또 번호 중복을 검사하는 함수에 if문이 중첩된다 
++ if 문 중첩을 해결할 수 있는 방법을 고민 해보아야 겠다
+
+

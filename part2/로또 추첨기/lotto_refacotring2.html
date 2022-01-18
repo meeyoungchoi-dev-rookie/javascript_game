@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+
+        #lotto_num {
+            width: 600px;
+            height: 100px;
+            /* border: 1px solid black; */
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .ball {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            background-color: wheat;
+            margin-left: 20px;
+            margin-right: 10px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 50px;
+            /*https://dantes.kr/410 : div 태그내 글자 가운데 정렬하는 꿀팁*/
+        }
+
+        .bonus_ball {
+            width: 50px;
+            height: 50px;
+            border-radius: 100%;
+            background-color: yellow;
+            margin-left: 10px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 50px;
+        }
+
+        #lotto_bonus {
+            width: 600px;
+            height: 100px;
+            /* border: 1px solid black; */
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+
+    </style>
+</head>
+<body>
+    <h1>로또 추첨기</h1>   
+    <div id="lotto_num">
+        <span>당첨 번호: </span>
+    </div>
+    <div id="lotto_bonus">
+        <span>보너스 번호: </span>
+    </div>
+    <script>
+        let lotts = [];
+        let numbers = [];
+        const $lotto_num = document.querySelector("#lotto_num");
+        const $lotto_bonus = document.querySelector("#lotto_bonus");
+
+ 
+
+       const inputArray = () => {
+           for (let i = 0; i < 50; i++) {
+                numbers[i] = i + 1;   
+           }
+       }
+
+       const gameStart = () => {
+           inputArray();
+       }
+
+       const randomLotto = () => {
+           for (let i = 0; i < 7; i++) {
+               let index = Math.floor(Math.random() * 49);
+               
+               if (i == 0) {
+                   lotts.push(numbers[index]);
+                 
+               } else {
+                   let id = lotts.indexOf(numbers[index]);    
+                   if (id > -1) {
+                       i--;
+                   } else {
+                       lotts.push(numbers[index]);
+                      
+                   }
+               }
+           }   
+       }
+
+       const printLottos = ()  => {
+            for (let i = 0; i < lotts.length; i++) {
+                console.log("index: " + i);
+                console.log(lotts[i]);
+                setTimeout(() => {
+                    let $div = document.createElement("div");
+                    if (i == 6) {
+                        console.log("6");
+
+                        $div.className = "bonus_ball";
+                        $div.textContent = lotts[i];
+
+                        $lotto_bonus.append($div);
+                    } else {
+                        $div.textContent = lotts[i];
+                        $div.className = "ball";
+                        
+                        $lotto_num.append($div); 
+                    } 
+                
+                } , (i + 1) * 2000);
+            }
+       }
+
+        gameStart();
+        randomLotto();
+        printLottos();
+   
+    </script>
+
+
+</body>
+</html>
