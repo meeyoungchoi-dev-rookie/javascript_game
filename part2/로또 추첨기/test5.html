@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        const numbers  = Array(45).fill().map((element , i) => {
+                            return i + 1;
+                        });
+        console.log(numbers);
+
+        const datas = [];
+        while (numbers.length > 0) {
+
+            const number  = Math.floor(Math.random() * numbers.length);
+            const data = numbers.splice(number , 1);
+            datas.push(data);
+        }
+
+
+        console.log(datas);
+
+
+        let lottoData = datas.splice(0 , 7);
+        console.log("정렬전 : " + lottoData);
+        let minIndex = 0;
+
+        for (let i = 0; i < lottoData.length - 1; i++) {
+            minIndex = i;
+            for (let j = i + 1; j < lottoData.length; j++) {
+                if (lottoData[j] < lottoData[minIndex]) {
+                    minIndex = j
+                   
+                }
+            }
+
+            let temp = lottoData[i];
+            lottoData[i] = lottoData[minIndex];
+            lottoData[minIndex] = temp;
+
+        }
+
+        console.log("정렬후: " + lottoData);
+
+        lottoData.sort((a , b) => {
+            return a - b;
+        })
+
+        console.log("정렬후2: " + lottoData);
+
+
+    </script>
+</body>
+</html>
