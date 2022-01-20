@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>가위바위보 게임</h1>
+    <div>
+        <button>가위</button>
+        <button>바위</button>
+        <button>보</button>
+    </div>
+    <div>
+        <span>나:</span>
+        <span id="me"></span>
+    </div>
+    <div>
+        <span>컴퓨터:</span>
+        <span id="computer"></span>
+    </div>
+    <div>
+        <span>결과:</span>
+        승:<span id="win"></span>
+        무:<span id="draw"></span>
+        패:<span id="loose"></span>
+    </div>
+
+    <script>
+        let me = "";
+        let computer = "";
+
+        let winCount = 0;
+        let looseCount = 0;
+        let sameCount = 0;
+
+        const comArray = Array(3);
+        let comArrayCopy = [];
+        const $button = document.querySelectorAll("button");
+        const $draw = document.querySelector("#draw");
+        const $win = document.querySelector("#win");
+        const $loose = document.querySelector("#loose");
+        const $me = document.querySelector("#me");
+        const $computer = document.querySelector("#computer");  
+
+        const buttonClicked = (event) => {
+            console.log(event.target.textContent);
+            me = event.target.textContent;
+            event.target.style.backgroundColor = "red";
+            console.log("me: " + me);
+            if (me != "" && me != undefined && me != null) {
+                [].forEach.call($button , function(col) {
+                   col.disabled = true;
+                });
+                setTimeout(comRandom , 1000);
+            }
+        };
+
+
+   
+
+
+        const gameStart = () => {
+        
+            [].forEach.call($button , function(col) {
+                col.addEventListener("click" , buttonClicked);
+            });
+        };
+
+
+        const comRandom = () => {
+            comArray[0] = "가위";
+            comArray[1] = "바위";
+            comArray[2] = "보";
+            console.log(comArray);
+
+            while (comArray.length > 0) {
+                let randomIndex = Math.floor(Math.random()  * comArray.length);
+                console.log("randomIndex: " + randomIndex);    
+                const data = comArray.splice(randomIndex , 1);
+                comArrayCopy.push(data);
+            }
+
+            console.log(comArrayCopy);
+
+            let index = Math.floor(Math.random() * comArrayCopy.length);
+            computer = comArrayCopy[index];
+            console.log("computer: " + computer);
+
+            if (computer != "" && computer != undefined && computer != null) {
+                getResult();
+            }
+        }
+
+        const reset = () => {
+            [].forEach.call($button , function(col) {
+                   col.disabled = false;
+                   col.style.backgroundColor = "";
+            });
+
+            $me.textContent = "";
+            $computer.textContent = "";
+          
+        }
+
+        const loose = () => {
+            looseCount += 1;
+            $loose.textContent = looseCount;
+            $me.textContent = me;
+            $computer.textContent = computer;
+            setTimeout(reset , 1000);
+        }
+
+        const win = () => {
+            winCount += 1;
+            $win.textContent = winCount;
+            $me.textContent = me;
+            $computer.textContent = computer;
+            setTimeout(reset , 1000);
+        }
+
+
+        const same = () => {
+            console.log("무승부");
+            sameCount += 1;
+            $draw.textContent = sameCount;
+            $me.textContent = me;
+            $computer.textContent = computer;
+            setTimeout(reset , 1000);
+        }
+
+        const getResult = () => {
+            // 나의 패를 기준으로 컴퓨터와 비교하여 결과를 판단하겠다
+
+            // 비기는 경우
+            if (me == computer) {
+                same();
+                return;
+            }
+
+
+            // 이기거나 지는 경우
+           else  if (me == "가위") {
+                if (computer == "바위") {
+                    loose();
+                    return;
+                } else {
+                    win();
+                    return;
+                }
+            }  else if (me == "바위") {
+                if (computer == "보") {
+                    loose();
+                    return;
+                } else {                   
+                    win();
+                    return;
+                }
+            } else { // 나 : 보
+                if (computer == "가위") {
+                    loose();
+                    return;
+                } else {
+                    win();
+                    return;
+                }
+            }
+        }
+
+        gameStart();
+
+      
+
+
+        
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>
