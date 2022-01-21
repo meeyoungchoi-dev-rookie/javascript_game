@@ -16,7 +16,14 @@
             height: 50px;
         }
 
-
+        .me_you {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 300px;
+            height: 300px;
+            border: 1px solid black;
+        }
 
 
 
@@ -26,15 +33,15 @@
 <body>
     <h1>가위바위보 게임</h1>
     <div>
-        <button>보<img src="images/paper.png"></button>
-        <button>바위<img src="images/rock.png"></button>
-        <button>가위<img src="images/scissors.png"></button>
+        <button>보</button>
+        <button>바위</button>
+        <button>가위</button>
     </div>
-    <div>
+    <div class="me_you">
         <span>나:</span>
         <div id="me"></div>
     </div>
-    <div>
+    <div class="me_you">
         <span>컴퓨터:</span>
         <div id="computer"></div>
     </div>
@@ -63,7 +70,6 @@
         const $computer = document.querySelector("#computer");  
 
         const buttonClicked = (event) => {
-            console.log(event.target.textContent);
             me = event.target.textContent;
             event.target.style.backgroundColor = "red";
             console.log("me: " + me);
@@ -74,9 +80,6 @@
                 comRandom();
             }
         };
-
-
-   
 
 
         const gameStart = () => {
@@ -91,16 +94,13 @@
 
 
         const comRandom = () => {
-            console.log(comArray);
-
+        
             while (comArray.length > 0) {
                 let randomIndex = Math.floor(Math.random()  * comArray.length);
                 console.log("randomIndex: " + randomIndex);    
                 const data = comArray.splice(randomIndex , 1);
                 comArrayCopy.push(data);
             }
-
-            console.log(comArrayCopy);
 
             let index = Math.floor(Math.random() * comArrayCopy.length);
             computer = comArrayCopy[index];
@@ -125,17 +125,18 @@
         const loose = () => {
             looseCount += 1;
             $loose.textContent = looseCount;
-            $me.textContent = me;
+            // $me.textContent = me;
+           
             $computer.textContent = computer;
-            setTimeout(reset , 1000);
+            setTimeout(reset , 1050);
         }
 
         const win = () => {
             winCount += 1;
             $win.textContent = winCount;
-            $me.textContent = me;
-            $computer.textContent = computer;
-            setTimeout(reset , 1000);
+            // $me.textContent = me;
+            // $computer.textContent = computer;
+            setTimeout(reset , 1050);
         }
 
 
@@ -143,10 +144,44 @@
             console.log("무승부");
             sameCount += 1;
             $draw.textContent = sameCount;
-            $me.textContent = me;
+            // $me.textContent = me;
             $computer.textContent = computer;
-            setTimeout(reset , 1000);
+            setTimeout(reset , 1050);
         }
+
+        const insertPicture = (me) => {
+            let $img = "";
+            $img = document.createElement("img");
+            if (me == "가위") {
+                $img.src = 'scissors.png'; 
+            } else if (me == "바위") {
+                $img.src = 'rock.png';
+            } else {
+                $img.src = 'paper.png';
+            }
+
+            $me.append($img);
+        }
+
+        const insertComPicture = (computer) => {
+
+            let $img = "";
+            $img = document.createElement("img");
+            if (computer == "가위") {
+                $img.src = 'scissors.png'; 
+            } else if (computer == "바위") {
+                $img.src = 'rock.png';
+            } else {
+                $img.src = 'paper.png';
+            }
+
+            $computer.append($img);
+
+
+
+        }
+
+
 
         const getResult = () => {
             // 나의 패를 기준으로 컴퓨터와 비교하여 결과를 판단하겠다
@@ -160,26 +195,35 @@
 
             // 이기거나 지는 경우
            else  if (me == "가위") {
+                insertPicture(me);
                 if (computer == "바위") {
+                    insertComPicture(computer);
                     loose();
                     return;
                 } else {
+                    insertComPicture(computer);
                     win();
                     return;
                 }
             }  else if (me == "바위") {
+                insertPicture(me);  
                 if (computer == "보") {
+                    insertComPicture(computer);
                     loose();
                     return;
-                } else {                   
+                } else {     
+                    insertComPicture(computer);              
                     win();
                     return;
                 }
             } else { // 나 : 보
+                insertPicture(me);  
                 if (computer == "가위") {
+                    insertComPicture(computer);
                     loose();
                     return;
                 } else {
+                    insertComPicture(computer);
                     win();
                     return;
                 }
