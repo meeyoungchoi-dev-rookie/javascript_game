@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반응속도 계산</title>
+    <style>
+        #box {
+            width: 300px;
+            height: 300px;
+            background-color: blue;
+            margin-top: 20px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>반응속도 계산</h1>
+    <div id="box">
+
+    </div>
+    <button type="button">클릭해서 시작하세요</button>
+
+    <h1>반응속도 순위</h1>
+    <div id="result">
+        <div id="myresult">
+            <div>내가 걸린 시간</div>
+            <div id="me"></div>
+        </div>
+    </div>
+
+
+    <script>
+        
+        const $box = document.querySelector("#box");
+        const $button = document.querySelector("button");
+        const $me  = document.querySelector("#me");
+
+        let start = "";
+        let end = "";
+        let mytime = "";
+
+        const clickStart = (event) => {
+            end  = new Date();    
+            console.log("반응하는데 걸린 시간: " , (end - start));
+            mytime = (end - start);
+            
+            $me.append(mytime + "ms" , document.createElement("br"));
+            
+        }
+
+        const changeBackgroundColor = () => {
+            $box.style.backgroundColor = "green";
+            start = new Date();
+            $button.textContent = "클릭하세요!!";
+            $button.addEventListener("click", clickStart);
+        }
+
+
+
+        const buttonClicked = (event) => {
+            
+            $box.style.backgroundColor = "red";
+            $button.textContent = "초록색이 되면 클릭하세요";
+
+            setTimeout(changeBackgroundColor , 5000);
+
+        }
+
+        $button.addEventListener('click', buttonClicked);
+
+    </script>
+
+
+</body>
+</html>
