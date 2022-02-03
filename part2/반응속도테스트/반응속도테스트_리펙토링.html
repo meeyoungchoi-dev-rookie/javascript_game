@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        #screen {
+            margin-top: 20px;
+            width: 300px;
+            height: 200px;
+            text-align:  center;
+            
+        }
+
+        #screen.waiting {
+            background-color: blue;
+        }
+
+        #screen.ready {
+            background-color: red;
+        }
+
+        #screen.now {
+            background-color: green;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    
+    <button>클릭해서 시작하세요</button>
+
+    <div id="screen" class="waiting">
+
+    </div>
+    <div id="result">
+
+    </div>
+    <div id="average">
+
+    </div>
+
+    <script>
+        const $button = document.querySelector("button");  
+        const $screen = document.querySelector("#screen");
+        const $result = document.querySelector("#result");
+        const $average = document.querySelector("#average");
+        const timeGapArray = [];    
+ 
+        let startTime;
+        let endTime;
+        let timeGap;
+        let timerId;
+
+        $button.addEventListener("click" , function() {
+            if ($screen.classList.contains('waiting')) {
+                $screen.classList.remove('waiting');
+                $screen.classList.add('ready');
+                $screen.textContent = "초록색이 되면 버튼을 클릭하세요";
+
+                timerId = setTimeout(function() {
+                   startTime = new Date();
+                   $screen.classList.remove('waiting');
+                   $screen.classList.add('now');     
+                   $screen.textContent = "버튼을 클릭하세요"; 
+                    
+
+                }, 3000);
+            } else if ($screen.classList.contains('now')) {
+                endTime = new Date();
+                timeGap = endTime - startTime;
+                $screen.classList.remove('now');
+                $screen.classList.add('waiting');
+                $screen.textContent = "클릭해서 시작하세요";
+                $result.innerHTML += timeGap + "m/s" + "<br>";
+                timeGapArray.push(timeGap);
+                const average = timeGapArray.reduce((a, c) => a + c) / timeGapArray.length;
+                $average.innerHTML = "평균" + average + "m/s";
+
+            } else if ($screen.classList.contains("ready")) {
+                clearTimeout(timerId);
+                $screen.classList.remove("ready");
+                $screen.classList.add("waiting");
+                $screen.textContent = "너무 성급한 클릭입니다.";
+            }
+        })    
+
+
+    </script>
+</body>
+</html>
