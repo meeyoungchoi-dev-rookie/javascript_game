@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>틱택토</title>
+    <style>
+        .outer {
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tictactoe {
+             width: 60vh;
+             height: 60vh;
+             border: 1vh solid blueviolet;
+             background-color: aqua; 
+        }
+
+
+        .first_row {
+            /* width: 20vh;
+            height: 20vh;
+            background-color: white; */
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .first_row div {
+            width: 15vh;
+            height: 15vh;
+            background-color: blue;
+        }
+
+
+        .second_row {
+            /* width: 20vh;
+            height: 20vh;
+            background-color: white; */
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .second_row div {
+            width: 15vh;
+            height: 15vh;
+            background-color: green;
+        }
+
+        .third_row {
+            /* width: 20vh;
+            height: 20vh;
+            background-color: white; */
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+
+        .third_row div {
+            width: 15vh;
+            height: 15vh;
+            background-color: orange;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="outer">
+        <div class="tictactoe">
+            <div class="first_row">
+                <div id="1"></div>
+                <div id="2"></div>
+                <div id="3"></div>
+            </div>
+            <div class="second_row">
+                <div id="4"></div>
+                <div id="5"></div>
+                <div id="6"></div>
+            </div>
+            <div class="third_row">
+                <div id="7"></div>
+                <div id="8"></div>
+                <div id="9"></div>
+            </div>
+        </div>
+    
+    </div>
+    
+
+
+    <script>
+
+        let tictactoe  = [['0'], ['0'], ['0'], 
+                          ['0'] ,['0'], ['0'] , 
+                          ['0'], ['0'], ['0']];
+
+
+        let $div_1 = document.getElementById("1");
+        let $div_2 = document.getElementById("2");
+        let $div_3 = document.getElementById("3");
+        let $div_4 = document.getElementById("4");
+        let $div_5 = document.getElementById("5");
+        let $div_6 = document.getElementById("6");
+        let $div_7 = document.getElementById("7");
+        let $div_8 = document.getElementById("8");
+        let $div_9 = document.getElementById("9");
+
+        function clicked1(event) {
+            console.log(tictactoe[0][0]);
+        }
+        function clicked2(event) {
+            console.log(tictactoe[0][1]);
+        }
+        function clicked3(event) {
+            console.log(tictactoe[0][2]);
+        }
+        function clicked4(event) {
+            console.log(tictactoe[1][0]);
+        }
+        function clicked5(event) {
+            console.log(tictactoe[1][1]);
+        }
+        function clicked6(event) {
+            console.log(tictactoe[1][2]);
+        }
+        function clicked7(event) {
+            console.log(tictactoe[2][0]);
+        }
+        function clicked8(event) {
+            console.log(tictactoe[2][1]);
+        }
+        function clicked9(event) {
+            console.log(tictactoe[2][2]);
+        }
+
+        $div_1.addEventListener("click" , clicked1);
+        $div_2.addEventListener("click" , clicked2);
+        $div_3.addEventListener("click" , clicked3);
+        $div_4.addEventListener("click" , clicked4);
+        $div_5.addEventListener("click" , clicked5);
+        $div_6.addEventListener("click" , clicked6);
+        $div_7.addEventListener("click" , clicked7);
+        $div_8.addEventListener("click" , clicked8);
+        $div_9.addEventListener("click" , clicked9);
+        
+
+
+
+
+
+    </script>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -866,3 +866,13 @@ document.body.appendChild(p);
 + 3차 리펙토링에서는 append와 appendChild 메서드를 사용해 보았다
 + 상위 5개 요소가 들어갈 div 요소를 만든 후 그 안에 appendChild를 사용하여 각 데이터가 담긴 div 요소를 추가해 줬다
 + 또한 해당 데이터가 반응속도 상위 5위와 관련된 것임을 알려주기 위해 제목용 div를 만들고 append를 사용하여 제목 요소를 추가해 줬다
+
+
+
+# 02월 22일
+## 잘된점
++ 틱택토 게임 레이아웃 설계
++ 각 요소 클릭시 이벤트 생성
+
+## 배운점
++ [틱택토 레이아웃 설계과정 정리](https://unique-wandflower-4cc.notion.site/265fab00e45548b28b51e9f676db72ac)

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid black;
+            width: 40px;
+            height: 40px;
+            text-align:  center;
+        }
+
+    </style>
+</head>
+<body>
+    
+
+
+
+    <script>
+        const data = [];
+
+        for (let i = 0; i < 3; i++) {
+            data.push([]);
+        }
+
+        const $table = document.createElement('table');
+     
+        for (let i = 0; i < 3; i++ ) {
+            const $tr = document.createElement('tr');
+            for (let j = 0; j < 3; j++) {
+                const $td = document.createElement('td');
+                $tr.appendChild($td);
+                $td.addEventListener('click', () => {
+                   console.log("clicked");     
+                });
+            }
+            $table.append($tr);
+        }
+
+        document.body.append($table);
+    </script>
+</body>
+</html>
